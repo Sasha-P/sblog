@@ -21,6 +21,9 @@
                 <!--<a class="blog-nav-item" href="#">New features</a>-->
                 <!--<a class="blog-nav-item" href="#">Press</a>-->
                 <!--<a class="blog-nav-item" href="#">New hires</a>-->
+                {% if user.is_authenticated %}
+                    <a href="{% url 'post_new' %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a>
+                {% endif %}
                 <a class="blog-nav-item" href="#">About</a>
             </nav>
         </div>
