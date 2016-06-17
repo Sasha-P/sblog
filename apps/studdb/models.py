@@ -13,7 +13,7 @@ class Student(models.Model):
         return '%s %s %s' % (self.last_name, self.first_name, self.patronymic)
 
     def get_absolute_url(self):
-        return reverse('studdb:student_detail', kwargs={'pk': self.pk})
+        return reverse('studdb:student_edit', kwargs={'pk': self.pk})
 
     class Meta:
         verbose_name = u'Student'
