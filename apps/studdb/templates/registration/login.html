@@ -1,0 +1,27 @@
+{% extends 'studdb/base.html' %}{% load staticfiles %}
+
+{% block head_extend %}
+    <!-- Custom styles for this template -->
+    <link href="{% static 'css/signin.css' %}" rel="stylesheet">
+{% endblock%}
+
+{% block content %}
+    <div class="container">
+        <div class="content">
+            {% if message %}
+                <div class="alert alert-danger" role="alert">
+                    {{ message }}
+                </div>
+            {% endif %}
+            <form class="form-signin" method="post" action="{% url 'login' %}">{% csrf_token %}
+                <h2 class="form-signin-heading">Please sign in</h2>
+                <label for="id_username" class="sr-only">{{ form.username.label }}</label>
+                {{ form.username }}
+                <label for="id_password" class="sr-only">{{ form.password.label }}</label>
+                {{ form.password }}
+                <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+                <input type="hidden" name="next" value="{{ next }}" />
+            </form>
+        </div>
+    </div> <!-- /container -->
+{% endblock %}

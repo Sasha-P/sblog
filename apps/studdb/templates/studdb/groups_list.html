@@ -1,0 +1,45 @@
+{% extends 'studdb/base.html' %}
+
+{% block url_groups %}class="active"{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="content">
+            <a class="btn btn-default btn-sm navbar-right" href="{% url 'studdb:group_new' %}"><span class="glyphicon glyphicon-plus"></span></a>
+            {% if groups %}
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Group Name</th>
+                            <th>Monitor</th>
+                            <th>Students count</th>
+                            {% if user.is_authenticated %}
+                            <th>Manage</th>
+                            {% endif %}
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                    {% for group in groups %}
+                        <tr>
+                            <th scope="row">{{ forloop.counter }}</th>
+                            <td><a href="{% url 'studdb:group_detail' group.id %}">{{ group.name }}</a></td>
+                            <td>{{ group.monitor }}</td>
+                            <td>{{ group.student_set.all|length }}</td>
+                            {% if user.is_authenticated %}
+                            <td>
+                                <a class="btn btn-default btn-xs" href="{% url 'studdb:group_edit' pk=group.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>
+                                <a class="btn btn-default btn-xs" href="{% url 'studdb:group_remove' pk=group.pk %}"><span class="glyphicon glyphicon-remove"></span></a>
+                            </td>
+                            {% endif %}
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <div>Sorry, no groups in this list.</div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
