@@ -17,20 +17,11 @@ from django.conf.urls import url, include
 from django.contrib import admin
 import django.contrib.auth.views
 
-from rest_framework import routers
 from apps.studdb import views
-
-router = routers.DefaultRouter()
-router.register(r'users', views.UserViewSet)
-router.register(r'groups', views.GroupViewSet)
-router.register(r'sessions', views.SessionViewSet)
-router.register(r'activeusers', views.ActiveUsersViewSet, 'activeusers')
 
 admin.autodiscover()
 
 urlpatterns = [
-    url(r'^api/v1/', include(router.urls)),
-    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^admin/', admin.site.urls),
     url(r'^accounts/login/$', views.LoginView.as_view(), name='login'),
     url(r'^accounts/registration/$', views.RegisterView.as_view(), name='registration'),
