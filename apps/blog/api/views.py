@@ -63,12 +63,12 @@ class PostList(ListCreateAPIView):
     List all posts, or create a new post.
     """
     serializer_class = PostSerializer
-    queryset = Post.objects.all()
+    queryset = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
 
-    def list(self, request, *args, **kwargs):
-        posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
-        serializer = PostSerializer(posts, many=True)
-        return Response(serializer.data)
+    # def list(self, request, *args, **kwargs):
+    #     posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
+    #     serializer = PostSerializer(posts, many=True)
+    #     return Response(serializer.data)
 
     def create(self, request, *args, **kwargs):
         serializer = PostSerializer(data=request.data)
